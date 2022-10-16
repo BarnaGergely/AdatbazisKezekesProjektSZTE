@@ -4,13 +4,26 @@
 
 Ebben a projektben egy hotel nyilvántartási webes alkalmazást fogok PHP, MySQL és Bootstrap alapokra felépíteni.
 
+```
+Ide írd le tömören (4-6 mondatban), hogy miről szól a projekt, amit a gyakorlatvezetőtől kaptatok.
+Írd le, hogy mik a fő célok, miért van a weboldalra szükség.
+A dokumentumban a pirossal illetve a blokkokkal kiemelt szövegeknek két jelentése van:
+(a) minta/sablon szöveg, amit le kell cserélni, pl. gyakorlatvezető neve;
+(b) segítő/magyarázó szöveg.
+Az átadott dokumentumban nem szerepelhetnek se pirossal kiemelt, se blokkban szereplő részek! A
+feketével írt részek törlése tilos, azok közösek.
+```
+
 ### Rendszerspecifikáció
 
 A rendszernek képesnek kell lennie arra, hogy adott cég alkalmazottai, vendégeik és szobáik nyilvántartását végezhessék benne.
 
-### Funkciók
+```
+Ide írd le részletesen, hogy mit fog tudni a rendszer (4-6 mondatban), amit a projekt keretében kerül megvalósításra.
+Mik a megrendelő és a felhasználók igényei? Miért van szükség a projektre?
+```
 
-TODO: részletesebben leírni
+### Funkciók
 
 - foglalások kezelése
   - ki mikorra, melyik szobát foglalta le
@@ -25,13 +38,15 @@ TODO: részletesebben leírni
   - A takarítók adatait el lehet tárolni, szerekeszteni vagy törölni az adatbázisban
   - Meg lehet nézni és be lehet állítani, mikor és mit takarítottak
 
+```
+Ide kerülnek a rendszerrel szemben támasztott funkcionális igények: azaz amit a rendszernek tudnia kell.
+```
+
 ### Egyed-kapcsolat diagram
 
 ![image](SzallodaProjektAdatbazisDiagram.drawio.svg)
 
 ### Egyed-kapcsolat leírása
-
-TODO: részletesebben leírni
 
 - Terek tábla adattagjai:
   - Kód (szoba száma)
@@ -59,20 +74,6 @@ TODO: részletesebben leírni
 
 ### Egyed-kapcsolat diagram leképezése relációs adatbázissémákká
 
-TODO:
-
-### Relációs adatbázissémákk normalizálása
-
-TODO:
-
-### Tábla tervek
-
-TODO:
-
-### Összetett lekírdezések
-
-TODO:
-
 ## Technológia
 
 A projekt a következő technológiákat/szoftvereket fogja használni a munka során:
@@ -86,7 +87,7 @@ A projekt a következő technológiákat/szoftvereket fogja használni a munka s
 
 ### webalkalmazás futtatása
 
-TODO: Leírni hogyan kell elindítani a webalkalmazást
+Ide írom le hogy kell elindítani.
 
 ## A munka tartalma
 
@@ -99,7 +100,7 @@ TODO: Leírni hogyan kell elindítani a webalkalmazást
 - CRUD
 - legalább 3 összetett lekérdezés
 
-#### A programhoz a tervezési dokumentáció az alábbiakat tartalmazza:
+#### A programhoz tervezési dokumentációt is csatolni kell, amely az alábbiakat tartalmazza:
 
 - A feladat megnevezése
 - A feladat specifikációja, leírása
@@ -133,5 +134,15 @@ Státusz osztályozás:
 - Tervezet: befejezetlen dokumentum, a mérföldkő leadása előtti napokban
 - Előterjesztés: a projekt menedzser bírálatával, a mérföldkő határidejekor
 - Elfogadott: a megrendelő által elfogadva, a prezentáció bemutatásakor
+
+```
+A leadott projekttervet véglegesnek kell tekinteni.
+Mindazonáltal indokolt esetben ettől el lehet térni, amennyiben a gyakorlatvezető engedélyezi.
+A fő változtatásokat itt kell vezetni a projekt teljes ideje alatt (jelenlegi példánkban most lett vége a 2. mérföldkőnek).
+Általánosságban elmondható, hogy az első 2 mérföldkő során gyakoribb a változtatás, így legalább
+3 fő verziót érdemes megjelölni (Tervezet-Előterjesztés-Elfogadott).
+A verzió számozásának következetesnek kell lennie. A szerzőknél azoknak a nevét kell felsorolni, akik hozzájárultak a fő verzióhoz,
+azaz nem feltétlen mindenki, aki módosította a dokumentumot pl. egy elírás javításával.
+```
 
 Szeged, 2022-10-15.
