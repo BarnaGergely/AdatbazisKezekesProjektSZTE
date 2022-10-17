@@ -6,7 +6,7 @@ Ebben a projektben egy hotel nyilvántartási webes alkalmazást fogok PHP, MySQ
 
 ### Rendszerspecifikáció
 
-A rendszernek képesnek kell lennie arra, hogy adott cég alkalmazottai, vendégeik és szobáik nyilvántartását végezhessék benne.
+A rendszernek képesnek kell lennie arra, hogy a cég takarítói, vendégei és foglalásai nyilvántartását végezhessék benne.
 
 ### Funkciók
 
@@ -23,7 +23,7 @@ TODO: részletesebben leírni
   - Meg lehet nézni mikor lettek legutóbb kitakarítva és éppen lakik e valaki bennük
 - Takarítók nyilvántartása
   - A takarítók adatait el lehet tárolni, szerekeszteni vagy törölni az adatbázisban
-  - Meg lehet nézni és be lehet állítani, mikor és mit takarítottak
+  - Meg lehet nézni és be lehet állítani, mikor és mit takarított az adott takarító
 
 ### Egyed-kapcsolat diagram
 
