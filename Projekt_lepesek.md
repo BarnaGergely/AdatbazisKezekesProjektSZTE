@@ -1,36 +1,35 @@
 # AdatB kötprog how-to:
 1. Veszel egy tetszőleges témát
-   pl.: Hotel, Webshop, pizzéria, kávézó, "dvd" kölcsönző, linux iso torrent oldal, leltár, Kv fogyasztási szokás követése, etc.
+   - pl.: Hotel, Webshop, pizzéria, kávézó, "dvd" kölcsönző, linux iso torrent oldal, leltár, Kv fogyasztási szokás követése, etc.
 
-2) Józan paraszti ésszel végiggondolod mit lehet a kiválasztott témában tárolni illetve miket érdemes (felhasználó, termék, etc..).
-   Vagy megválaszolod a kérdést: ha csinálnál egy ilyen céget mit tárolnál (független bármilyen gdpr következménytől) ? Valamint amit érdemes lehet megválaszolni: Mit akarok a felhasználónak mutatni, mit tudjon az alkalmazás?
+2. Józan paraszti ésszel végiggondolod mit lehet a kiválasztott témában tárolni illetve miket érdemes (felhasználó, termék, etc..).
+   - Vagy megválaszolod a kérdést: ha csinálnál egy ilyen céget mit tárolnál (független bármilyen gdpr következménytől) ? Valamint amit érdemes lehet megválaszolni: Mit akarok a felhasználónak mutatni, mit tudjon az alkalmazás?
 
-3) Veszel egy papírt - célszerűen A4-eset - leírod ezeket a dolgokat amiket szeretnél tárolni.
-   pl.: usernév, email, kv minősége, Watt fogyasztás, etc..
+3. Veszel egy papírt - célszerűen A4-eset - leírod ezeket a dolgokat amiket szeretnél tárolni.
+   - pl.: usernév, email, kv minősége, Watt fogyasztás, etc..
 
-4) Egy másik papírra csoportosítod a tárolandó információkat amik kb egybe tartozhatnak.
-   Ezek lesznek a kezdeti egyedek, nem gond ha van ismétlődő elemed a csoportokban.
+4. Egy másik papírra csoportosítod a tárolandó információkat amik kb egybe tartozhatnak.
+   - Ezek lesznek a kezdeti egyedek, nem gond ha van ismétlődő elemed a csoportokban.
 
-5) Ezen a ponton elvileg megvannak a "modellek", hogy miket akarsz tárolni. Eddig még kapcsolatot nem is csináltál!
-   (Kicsit tekinthetőek már tábláknak.)
-   Protipp: A modell (/tábla) neve ne legyen többesszámban. 
-6) A modellek alapján megnézed miket lehet összekapcsolni. Ez természetesen téma függő.
-   Itt esetleg olyan is bejöhet, hogy funkció szerint gondolkodik az ember pl.: webshop: kosár funkció: user-termék kapcsolat.
-   Az összekapcsoláshoz mindig azonosítani kell az egyedeket a modellben/táblában, ehhez az egyik legjobb dolog ha egy ID tulajdonságot felveszünk az elemhez. Ezen ID alapján tudjuk majd kapcsolni az egyik modellből származó egyedet egy másik modellbeli egyeddel.
+5. Ezen a ponton elvileg megvannak a "modellek", hogy miket akarsz tárolni. Eddig még kapcsolatot nem is csináltál! (Kicsit tekinthetőek már tábláknak.)
+   - Protipp: A modell (/tábla) neve ne legyen többesszámban. 
+6. A modellek alapján megnézed miket lehet összekapcsolni. Ez természetesen téma függő.
+   - Itt esetleg olyan is bejöhet, hogy funkció szerint gondolkodik az ember pl.: webshop: kosár funkció: user-termék kapcsolat.
+   - Az összekapcsoláshoz mindig azonosítani kell az egyedeket a modellben/táblában, ehhez az egyik legjobb dolog ha egy ID tulajdonságot felveszünk az elemhez. Ezen ID alapján tudjuk majd kapcsolni az egyik modellből származó egyedet egy másik modellbeli egyeddel.
 
-7) Végzel egy-két-három normalizálást. (2NF/3NF). Célszerűen legalább 2NF legyen minden tábla.
+7. Végzel egy-két-három normalizálást. (2NF/3NF). Célszerűen legalább 2NF legyen minden tábla.
 
-8) Ha megvannak a kapcsolatok, akkor meg kell vizsgálni a kapcsolódó modellek viszonyát (1:1, 1:N, N:1, N:M).
-   Ehhez célszerű lehet kérdéseket feltenni és megválaszolni.
-   pl: leltárs: user-eszköz kapcsolat: egy user-hez hány eszköz tartozhat? És egy eszközhöz hány user tartozhat?
-   Amit érdemes figyelembe venni még az az "időbeliség", pl.: hotelben foglaló személy-szoba kapcsolat: egy szoba egy foglaló személyhez lehet kiadva adott pillanatban, de a hotel élettartama alatt egy szoba több személyhez lehet kiadva, csak más időpontokba. Így ez már nem 1:1 kapcsolat hanem egyből egy N:1 -es kapcsolat sőt tovább gondolva egy N:M-es kapcsolat (ennek belátása az olvasó feladata).
-   Protipp template: "egy <modelname A> -hez hány <modelname B> tartozhat?" ahol <modelname A> és <modelname B> között kapcsolat van.
-   Extra: 1:1 -es kapcsolat azért kicsit érdekes, ott meg kell nagyon gondolni miért jött elő. Személyes véleményem szerint ez elég ritka.
+8. Ha megvannak a kapcsolatok, akkor meg kell vizsgálni a kapcsolódó modellek viszonyát (1:1, 1:N, N:1, N:M).
+   - Ehhez célszerű lehet kérdéseket feltenni és megválaszolni.
+   - pl: leltárs: user-eszköz kapcsolat: egy user-hez hány eszköz tartozhat? És egy eszközhöz hány user tartozhat?
+   - Amit érdemes figyelembe venni még az az "időbeliség", pl.: hotelben foglaló személy-szoba kapcsolat: egy szoba egy foglaló személyhez lehet kiadva adott pillanatban, de a hotel élettartama alatt egy szoba több személyhez lehet kiadva, csak más időpontokba. Így ez már nem 1:1 kapcsolat hanem egyből egy N:1 -es kapcsolat sőt tovább gondolva egy N:M-es kapcsolat (ennek belátása az olvasó feladata).
+   - Protipp template: "egy <modelname A> -hez hány <modelname B> tartozhat?" ahol <modelname A> és <modelname B> között kapcsolat van.
+   - Extra: 1:1 -es kapcsolat azért kicsit érdekes, ott meg kell nagyon gondolni miért jött elő. Személyes véleményem szerint ez elég ritka.
    
-8.X) Figyelem! Eddig mindig csak kettő modellt kapcsoltunk össze.
+   Figyelem! Eddig mindig csak kettő modellt kapcsoltunk össze.
    Való életben ez nem mindig így van, de plusz egy modellt hozzákapcsolni egy meglévő kapcsolathoz mindig feladatfüggő, hogy kell-e vagy hogy hova kell kötni.
 
-9) 1:N és N:1 -es kapcsolat esetén azon az oldalon ahol van az "N" ott egy extra mező/oszlop/attribútum lesz a táblában/modellben. Ez az extra mező a külső kulcsod. Nevezd el ennek megfelelően!
+9. 1:N és N:1 -es kapcsolat esetén azon az oldalon ahol van az "N" ott egy extra mező/oszlop/attribútum lesz a táblában/modellben. Ez az extra mező a külső kulcsod. Nevezd el ennek megfelelően!
    pl.: 
    Protipp template: "<other modelname B>_id".
 
