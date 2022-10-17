@@ -1,5 +1,5 @@
-adatb kötprog how-to:
-1) Veszel egy tetszőleges témát
+# AdatB kötprog how-to:
+1. Veszel egy tetszőleges témát
    pl.: Hotel, Webshop, pizzéria, kávézó, "dvd" kölcsönző, linux iso torrent oldal, leltár, Kv fogyasztási szokás követése, etc.
 
 2) Józan paraszti ésszel végiggondolod mit lehet a kiválasztott témában tárolni illetve miket érdemes (felhasználó, termék, etc..).
