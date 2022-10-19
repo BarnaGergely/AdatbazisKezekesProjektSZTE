@@ -59,7 +59,16 @@ TODO: részletesebben leírni
 
 ### Egyed-kapcsolat diagram leképezése relációs adatbázissémákká
 
-TODO:
+Ter(Kód, Megnevezés, Állapot)
+Szoba()
+Személy(Keresztnév, Vezetéknév, Személyi igazolvány szám, Állapot)
+Vendég(Rang)
+Rang
+Dolgozó(Fizetés, Beosztás)
+Takarító()
+Foglalás(Kezdete, Vége, Állapot)
+Takarítások kapcsolat a szobák és a dolgozók között. Adattagjai:
+Mikor takarít
 
 ### Relációs adatbázissémákk normalizálása
 
