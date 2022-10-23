@@ -59,20 +59,31 @@ TODO: részletesebben leírni
 
 ### Egyed-kapcsolat diagram leképezése relációs adatbázissémákká
 
-Ter(Kód, Megnevezés, Állapot)
-Szoba()
-Személy(Keresztnév, Vezetéknév, Személyi igazolvány szám, Állapot)
-Vendég(Rang)
-Rang
-Dolgozó(Fizetés, Beosztás)
-Takarító()
-Foglalás(Kezdete, Vége, Állapot)
-Takarítások kapcsolat a szobák és a dolgozók között. Adattagjai:
-Mikor takarít
+Tér(*<u>Kód</u>*, Megnevezés, Állapot)
+
+Szoba(*<u>Kód</u>*, Megnevezés, Állapot, Legutóbbi takarító, Legutóbbi takarítás időpontja)
+
+Vendég(Keresztnév, Vezetéknév, *<u>Személyi igazolvány szám</u>*, Állapot)
+
+Rang(<u>Személyi igazolvány szám</u>, Rang megnevezése)
+
+Kupon(<u>Lejárati dátum</u>, <u>Leárazás értéke</u>, <u>Tulajdonos</u>, Állapot)
+
+Személy(Keresztnév, Vezetéknév, *<u>Személyi igazolvány szám</u>*, Állapot)
+
+Dolgozó(Keresztnév, Vezetéknév, *<u>Személyi igazolvány szám</u>*, Állapot, Beosztás, Fizetés)
+
+Takarító(Keresztnév, Vezetéknév, *<u>Személyi igazolvány szám</u>*, Állapot, Beosztás, Fizetés)
+
+Foglalás(Foglalás száma, <u>Szoba kód</u>, <u>Kezdete</u>, Vége, Állapot)
+
+Foglaló(Foglalás száma, Személyi igazolvány szám)
 
 ### Relációs adatbázissémákk normalizálása
 
-TODO:
+Az ősosztályokat elhagytam, mivel nem lesz rájuk szükség az adatbázisban.
+
+
 
 ### Tábla tervek
 
