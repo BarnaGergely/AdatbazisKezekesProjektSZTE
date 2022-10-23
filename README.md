@@ -33,6 +33,8 @@ TODO: részletesebben leírni
 
 TODO: részletesebben leírni
 
+TODO: Kapcsolatok nyilainak újra értelmézése
+
 - Terek tábla adattagjai:
   - Kód (szoba száma)
   - Megnevezés
@@ -75,8 +77,6 @@ Foglalás(*<u>Foglalás száma</u>*, *Szobaszám*, Foglalás kezdete, Foglalás 
 Foglaló(<u>Foglalás száma</u>, <u>Személyi igazolvány szám</u>)
 
 ### Relációs adatbázissémákk normalizálása
-
-TODO: rájönni a többértékű attribútumok függőségeit hogyan kellene jelölni 
 
 #### Funkcionális függőségek:
 
