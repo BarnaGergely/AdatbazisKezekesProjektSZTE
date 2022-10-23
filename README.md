@@ -58,32 +58,119 @@ TODO: részletesebben leírni
   - Mikor takarít
 
 ### Egyed-kapcsolat diagram leképezése relációs adatbázissémákká
+Személy(Keresztnév, Vezetéknév, *<u>Személyi igazolvány szám</u>*, Személy állapota)
 
-Tér(*<u>Kód</u>*, Megnevezés, Állapot)
-
-Szoba(*<u>Kód</u>*, Megnevezés, Állapot, Legutóbbi takarító, Legutóbbi takarítás időpontja)
-
-Vendég(Keresztnév, Vezetéknév, *<u>Személyi igazolvány szám</u>*, Állapot)
+Vendég(<u>Személyi igazolvány szám</u>, Vendég állapota)
 
 Rang(<u>Személyi igazolvány szám</u>, Rang megnevezése)
 
-Kupon(<u>Lejárati dátum</u>, <u>Leárazás értéke</u>, <u>Tulajdonos</u>, Állapot)
+Dolgozó(<u>Személyi igazolvány szám</u>, Dolgozó állapota, Dolgozó beosztása, Dolgozó fizetése)
 
-Személy(Keresztnév, Vezetéknév, *<u>Személyi igazolvány szám</u>*, Állapot)
+Kupon(<u>Lejárati dátum</u>, <u>Leárazás értéke</u>, <u>Tulajdonos</u>, Kupon állapota)
 
-Dolgozó(Keresztnév, Vezetéknév, *<u>Személyi igazolvány szám</u>*, Állapot, Beosztás, Fizetés)
+Szoba(<u>Szobaszám</u>, Megnevezés, Szoba állapota, Legutóbbi takarító, Legutóbbi takarítás időpontja)
 
-Takarító(Keresztnév, Vezetéknév, *<u>Személyi igazolvány szám</u>*, Állapot, Beosztás, Fizetés)
+Foglalás(*<u>Foglalás száma</u>*, *Szobaszám*, Foglalás kezdete, Foglalás vége, Foglalás állapota)
 
-Foglalás(Foglalás száma, <u>Szoba kód</u>, <u>Kezdete</u>, Vége, Állapot)
-
-Foglaló(Foglalás száma, Személyi igazolvány szám)
+Foglaló(<u>Foglalás száma</u>, Foglaló személyi igazolvány száma)
 
 ### Relációs adatbázissémákk normalizálása
 
-Az ősosztályokat elhagytam, mivel nem lesz rájuk szükség az adatbázisban.
+TODO: rájönni a többértékű attribútumok függőségeit hogyan kellene jelölni 
+
+#### Funkcionális függőségek:
+
+1. {Személyi igazolvány szám} -> {Vendég állapota, Személy állapota, Keresztnév, Vezetéknév, Dolgozó állapota, Dolgozó beosztása, Dolgozó fizetése, Rang megnevezése}
+
+2. {Szobaszám} -> {Megnevezés, Szoba állapota, Legutóbbi takarító, Legutóbbi takarítás időpontja}
+
+3. {Foglalás száma} -> {Szobaszám, Foglalás kezdete, Foglalás vége, Foglalás állapota, Foglaló személyi igazolvány száma}
+
+4. {Lejárati dátum, Leárazás értéke, Tulajdonos} -> {Kupon állapota}
+
+5. {Személyi igazolvány szám, Keresztnév} -> {Vezetéknév, Személy állapota}
+
+6. {Személyi igazolvány szám, Dolgozó beosztása} -> {Dolgozó fizetése, Dolgozó állapota}
+
+7. {Foglalás száma, Szobaszám} -> {Foglalás kezdete, Foglalás vége,  Foglalás állapota}
+
+8. {Személyi igazolvány szám, Rang megnevezése} -> {Rang megnevezése}
+
+#### Összes attribútum egy táblában:
+
+R(Személyi igazolvány szám, Keresztnév, Vezetéknév, Személy állapota, Vendég állapota, Rang megnevezése, Dolgozó állapota, Dolgozó beosztása, Dolgozó fizetése, Lejárati dátum, Leárazás értéke, Tulajdonos, Kupon állapota, Szobaszám, Megnevezés, Szoba állapota, Legutóbbi takarító, Legutóbbi takarítás időpontja, Foglalás száma, Foglalás kezdete, Foglalás vége, Foglalás állapota, Foglaló személyi igazolvány száma)
+
+#### Kulcsok:
+
+{Személyi igazolvány szám, Szobaszám, Foglalás száma, Lejárati dátum, Leárazás értéke, Tulajdonos}
+
+#### 2NF
+
+##### 1., 2. és 3. függőség feloldása:
+
+R(*<u>Személyi igazolvány szám</u>*, *<u>Foglalás száma</u>*, <u>Lejárati dátum</u>, <u>Leárazás értéke</u>, <u>Tulajdonos</u>, Kupon állapota)
+
+R1(<u>Személyi igazolvány szám</u>, Vendég állapota, Személy állapota, Keresztnév, Vezetéknév, Dolgozó állapota, Dolgozó beosztása, Dolgozó fizetése, Rang megnevezése)
+
+R2(<u>Szobaszám</u>, Megnevezés, Szoba állapota, Legutóbbi takarító, Legutóbbi takarítás időpontja)
+
+R3(<u>Foglalás száma</u>, *Szobaszám*, Foglalás kezdete, Foglalás vége, Foglalás állapota, Foglaló személyi igazolvány száma)
+
+##### 4. függőség feloldása:
+
+R(*<u>Személyi igazolvány szám</u>*, *<u>Foglalás száma</u>*)
+
+R1(<u>Személyi igazolvány szám</u>, Vendég állapota, Személy állapota, Keresztnév, Vezetéknév, Dolgozó állapota, Dolgozó beosztása, Dolgozó fizetése, Rang megnevezése)
+
+R2(<u>Szobaszám</u>, Megnevezés, Szoba állapota, Legutóbbi takarító, Legutóbbi takarítás időpontja)
+
+R3(<u>Foglalás száma</u>, *Szobaszám*, Foglalás kezdete, Foglalás vége, Foglalás állapota, Foglaló személyi igazolvány száma)
+
+R4(<u>Lejárati dátum</u>, <u>Leárazás értéke</u>, <u>Tulajdonos</u>, Kupon állapota)
+
+##### 5., 6., 7. függőség feloldása:
+
+R(*<u>Személyi igazolvány szám</u>*, *<u>Foglalás száma</u>*)
+
+R1(<u>Személyi igazolvány szám</u>, Vendég állapota, Rang megnevezése)
+
+R2(<u>Szobaszám</u>, Megnevezés, Szoba állapota, Legutóbbi takarító, Legutóbbi takarítás időpontja)
+
+R3(<u>Foglalás száma</u> Foglaló személyi igazolvány száma)
+
+R4(<u>Lejárati dátum</u>, <u>Leárazás értéke</u>, <u>Tulajdonos</u>, Kupon állapota)
+
+R5(Keresztnév, Vezetéknév, <u>Személyi igazolvány szám</u>, Személy állapota)
+
+R6(<u>Személyi igazolvány szám</u>, Dolgozó állapota, Dolgozó beosztása, Dolgozó fizetése)
+
+R7(<u>Foglalás száma</u>, *Szobaszám*, Foglalás kezdete, Foglalás vége, Foglalás állapota)
 
 
+##### 8. függőség feloldása:
+
+R(*<u>Személyi igazolvány szám</u>*, *<u>Foglalás száma</u>*)
+
+R1(<u>Személyi igazolvány szám</u>, Vendég állapota)
+
+R2(<u>Szobaszám</u>, Megnevezés, Szoba állapota, Legutóbbi takarító, Legutóbbi takarítás időpontja)
+
+R3(<u>Foglalás száma</u> Foglaló személyi igazolvány száma)
+
+R4(<u>Lejárati dátum</u>, <u>Leárazás értéke</u>, <u>Tulajdonos</u>, Kupon állapota)
+
+R5(Keresztnév, Vezetéknév, <u>Személyi igazolvány szám</u>, Személy állapota)
+
+R6(<u>Személyi igazolvány szám</u>, Dolgozó állapota, Dolgozó beosztása, Dolgozó fizetése)
+
+R7(<u>Foglalás száma</u>, *Szobaszám*, Foglalás kezdete, Foglalás vége, Foglalás állapota)
+
+R8(<u>Személyi igazolvány szám</u>, Rang megnevezése)
+
+
+#### 3NF
+
+Már 3NF-ben van. mivel minden másodlagos attribútuma közvetlenül függ bármely kulcstól.
 
 ### Tábla tervek
 
