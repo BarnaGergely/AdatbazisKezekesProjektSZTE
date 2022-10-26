@@ -1,56 +1,52 @@
 # AdatB kötprog how-to:
-1. Veszel egy tetszőleges témát
-   - pl.: Hotel, Webshop, pizzéria, kávézó, "dvd" kölcsönző, linux iso torrent oldal, leltár, Kv fogyasztási szokás követése, etc.
+## Dokumentáció
+1. Nyisd meg a példa dokumentációt és egy UML diagram szerkesztőt (draw.io)
 
-2. Józan paraszti ésszel végiggondolod mit lehet a kiválasztott témában tárolni illetve miket érdemes (felhasználó, termék, etc..).
-   - Vagy megválaszolod a kérdést: ha csinálnál egy ilyen céget mit tárolnál (független bármilyen gdpr következménytől) ? Valamint amit érdemes lehet megválaszolni: Mit akarok a felhasználónak mutatni, mit tudjon az alkalmazás?
+2. Józan paraszti ésszel gondold végig mit kell tudnia rendszerednek és ehhez milyen funkciók kellenek. Ezeket írd is bele rögtön a dokumentumba.
 
-3. Veszel egy papírt - célszerűen A4-eset - leírod ezeket a dolgokat amiket szeretnél tárolni.
-   - pl.: usernév, email, kv minősége, Watt fogyasztás, etc..
+3. Milyen táblák és attribútomok fognak kelleni a funkciók megvalósításához? (diák, óra, terem, tanár, etc..). Vidd fel ezeket a diagramba.
 
-4. Egy másik papírra csoportosítod a tárolandó információkat amik kb egybe tartozhatnak.
-   - Ezek lesznek a kezdeti egyedek, nem gond ha van ismétlődő elemed a csoportokban.
+5. Ezen a ponton elvileg megvannak a "táblák", hogy miket akarsz tárolni. Eddig még kapcsolatot nem is csináltál! (Kicsit tekinthetőek már tábláknak.)
+   - Protipp: **A tábla neve ne legyen többesszámban**. 
 
-5. Ezen a ponton elvileg megvannak a "modellek", hogy miket akarsz tárolni. Eddig még kapcsolatot nem is csináltál! (Kicsit tekinthetőek már tábláknak.)
-   - Protipp: A modell (/tábla) neve ne legyen többesszámban. 
-6. A modellek alapján megnézed miket lehet összekapcsolni. Ez természetesen téma függő.
-   - Itt esetleg olyan is bejöhet, hogy funkció szerint gondolkodik az ember pl.: webshop: kosár funkció: user-termék kapcsolat.
-   - Az összekapcsoláshoz mindig azonosítani kell az egyedeket a modellben/táblában, ehhez az egyik legjobb dolog ha egy ID tulajdonságot felveszünk az elemhez. Ezen ID alapján tudjuk majd kapcsolni az egyik modellből származó egyedet egy másik modellbeli egyeddel.
-
-7. Végzel egy-két-három normalizálást. (2NF/3NF). Célszerűen legalább 2NF legyen minden tábla.
+6. Létre hozod a kapcsolatokat a táblák között
+   - Itt érdemes funkciókszerint gondolkodni
 
 8. Ha megvannak a kapcsolatok, akkor meg kell vizsgálni a kapcsolódó modellek viszonyát (1:1, 1:N, N:1, N:M).
    - Ehhez célszerű lehet kérdéseket feltenni és megválaszolni.
    - pl: leltárs: user-eszköz kapcsolat: egy user-hez hány eszköz tartozhat? És egy eszközhöz hány user tartozhat?
    - Amit érdemes figyelembe venni még az az "időbeliség", pl.: hotelben foglaló személy-szoba kapcsolat: egy szoba egy foglaló személyhez lehet kiadva adott pillanatban, de a hotel élettartama alatt egy szoba több személyhez lehet kiadva, csak más időpontokba. Így ez már nem 1:1 kapcsolat hanem egyből egy N:1 -es kapcsolat sőt tovább gondolva egy N:M-es kapcsolat (ennek belátása az olvasó feladata).
-   - Protipp template: "egy <modelname A> -hez hány <modelname B> tartozhat?" ahol <modelname A> és <modelname B> között kapcsolat van.
+   - Protipp template: "egy <tábla A> -hez hány <tábla B> tartozhat?" ahol <modelname A> és <modelname B> között kapcsolat van.
    - Extra: 1:1 -es kapcsolat azért kicsit érdekes, ott meg kell nagyon gondolni miért jött elő. Személyes véleményem szerint ez elég ritka.
    
-   Figyelem! Eddig mindig csak kettő modellt kapcsoltunk össze.
-   Való életben ez nem mindig így van, de plusz egy modellt hozzákapcsolni egy meglévő kapcsolathoz mindig feladatfüggő, hogy kell-e vagy hogy hova kell kötni.
+   - Figyelem! Eddig mindig csak kettő modellt kapcsoltunk össze.
+      - Való életben ez nem mindig így van, de plusz egy modellt hozzákapcsolni egy meglévő kapcsolathoz mindig feladatfüggő, hogy kell-e vagy hogy hova kell kötni.
+
+- Az összekapcsoláshoz mindig azonosítani kell az egyedeket a táblában, ehhez az egyik legjobb dolog ha egy ID tulajdonságot felveszünk az elemhez. Ezen ID (név, sorszám) alapján tudjuk majd kapcsolni az egyik modellből származó egyedet egy másik modellbeli egyeddel.
+
+7. Végzel egy-két-három normalizálást. (2NF/3NF). Célszerűen legalább 2NF legyen minden tábla.
 
 9. 1:N és N:1 -es kapcsolat esetén azon az oldalon ahol van az "N" ott egy extra mező/oszlop/attribútum lesz a táblában/modellben. Ez az extra mező a külső kulcsod. Nevezd el ennek megfelelően!
-   pl.: 
-   Protipp template: "<other modelname B>_id".
+   - Protipp template: "<other modelname B>_id".
 
 10) Amennyiben van N:M-es kapcsolatod azt jelenti, hogy a kapcsolatot tényét egy külön táblában kell tárolni majd.
-    Itt felmerülhet olyan, hogy a kapcsolathoz valami infót is jó lenne tárolni.
-    pl: kv szokások: user-kv tipus táblák kapcsolat extra infó: mikor itta a kv-t.
-    Igy kialakulhat egy ilyen kapcsolati tábla: "KVFogyasztás(int user_id, int kv_type, datetime time_of_consumtion)"
-    Protipp template a táblához: "<TableConnection A> (int <Table A>_id, int <Table B>_id,....)".
+    - Itt felmerülhet olyan, hogy a kapcsolathoz valami infót is jó lenne tárolni.
+    - pl: kv szokások: user-kv tipus táblák kapcsolat extra infó: mikor itta a kv-t.
+    - Igy kialakulhat egy ilyen kapcsolati tábla: "KVFogyasztás(int user_id, int kv_type, datetime time_of_consumtion)"
+    - Protipp template a táblához: "<TableConnection A> (int <Table A>_id, int <Table B>_id,....)".
 
 11) Elméletben ezen a pontod már elég sok infód van mit, hogyan, és milyen táblában tárolsz.
-    Fel kell rajzolni az egészet valamilyen random ábrára. Az ábra mutassa a modelleket, a modellekben található tulajdonságokat és a modellek közötti kapcsolatot.
+    - Fel kell rajzolni az egészet valamilyen random ábrára. Az ábra mutassa a modelleket, a modellekben található tulajdonságokat és a modellek közötti kapcsolatot.
 
 12) Megvizsgálod, hogy egy E-K ábrán miket hogyan lehet felrajzolni.
-    Ezek alapján a saját rajzodat átalakítod E-K formátumra.
+    - Ezek alapján a saját rajzodat átalakítod E-K formátumra.
 
 13) Az ábra alapján felírod a "CREATE TABLE" sql utasítások. Igen, írd fel kézzel, papírra, vagy akárhova. 
-    Protipp: Haladj egyesével az ábrán lévő modelleket. Minden modell esetén ha van az adott model beli egyed ID-t rakd előre a táblában (és célszerűen auto increment legyen, nem akarod kézel számolni). Ezek után jönnek a kapcsolatból jövő külső kulcsok ha vannak.
+    - Protipp: Haladj egyesével az ábrán lévő modelleket. Minden modell esetén ha van az adott model beli egyed ID-t rakd előre a táblában (és célszerűen auto increment legyen, nem akarod kézel számolni). Ezek után jönnek a kapcsolatból jövő külső kulcsok ha vannak.
 
 14) Ekkor rájössz, hogy valami nem okés, vagy valamit még jó lenne tárolni.
-    Így, egészítsd ki a 4 pontban létrejött csoportosításodat és futtasd onnan újra az algoritmust.
-    Egy kis rutinnal nem kell mindig a 4. ponttól újra kezdeni a dolgokat hanem már tudni fogod hova kell közvetlenül "belenyúlni".
+    - Így, egészítsd ki a 4 pontban létrejött csoportosításodat és futtasd onnan újra az algoritmust.
+    - Egy kis rutinnal nem kell mindig a 4. ponttól újra kezdeni a dolgokat hanem már tudni fogod hova kell közvetlenül "belenyúlni".
 
 15) Remélhetőleg most már megvan minden táblád. Végy egy másik papírt, csinálj annyi táblázatot ahány modelled van.
     Minden modell oszlopai az attribútumokat jelenti, a sorok pedig az abban tárolt egyedeket. Minden sor egy-egy egyed.
