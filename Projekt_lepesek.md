@@ -8,7 +8,7 @@
 3. Milyen táblák és attribútomok fognak kelleni a funkciók megvalósításához? (diák, óra, terem, tanár, etc..). Vidd fel ezeket a diagramba.
 
 5. Ezen a ponton elvileg megvannak a "táblák", hogy miket akarsz tárolni. Eddig még kapcsolatot nem is csináltál! (Kicsit tekinthetőek már tábláknak.)
-   - Protipp: **A tábla neve ne legyen többesszámban**. 
+   - Protipp: A tábla neve ne legyen többesszámban. 
 
 6. Létre hozod a kapcsolatokat a táblák között
    - Itt érdemes funkciókszerint gondolkodni
@@ -20,17 +20,19 @@
    - Protipp template: "egy <tábla A> -hez hány <tábla B> tartozhat?" ahol <tábla A> és <tábla B> között kapcsolat van.
    - Extra: 1:1 -es kapcsolat azért kicsit érdekes, ott meg kell nagyon gondolni miért jött elő. Személyes véleményem szerint ez elég ritka.
 
-9. Nézd meg a követelményeket és egészítsd kifura speciális dolgokkal (specializáló kapcsolat, több értékű attribútum, gyenge egyed)
+9. Nézd meg a követelményeket és egészítsd ki fura speciális dolgokkal (specializáló kapcsolat, több értékű attribútum, gyenge egyed)
+   - 
 
-10. Nézd át az attribútumok neveit és ha lenne ugyan olyan nevű
+10. Nézd át az attribútumok neveit és ha lenne ugyan olan nevű több táblában is, akkor nevezd át őket
    - pl.: felhasználó tábla név attribútmát felhasználónév-re, tanár tábla név attribútumát tanarneve-re.
+
+12) Még egyszer ellenőrzöd hogy csakis valid EK jelöléseket használtál e az ábrán
 
 11. Végezd el a leképezést a diagramból a sablonba
 
 12. Válaszd ki minden táblában a kulcsot és ha van a külső kulcsot
    - lehet egy vagy több attribtum is a kulcs, a lényeg, hogy eggyértelműen meghatározza a rekordot
    - szükség lehet ID bevezetésére, ami lényegében egy egyedi sorszámmal egyértelműen azonosít bármit
-
 
 13. írd fel a kapcsolatokat?
 
@@ -41,13 +43,10 @@
       - Itt felmerülhet olyan, hogy a kapcsolathoz valami infót is jó lenne tárolni.
       - pl: kv szokások: user-kv tipus táblák kapcsolat extra infó: mikor itta a kv-t.
       - Igy kialakulhat egy ilyen kapcsolati tábla: "KVFogyasztás(int user_id, int kv_type, datetime time_of_consumtion)"
-      - Protipp template a táblához: "<TableConnection A> (int <Table A>_id, int <Table B>_id,....)".
+      - Protipp template a táblához: "<TableConnection A> (int <table A>_id, int <table B>_id,....)".
+   - Ha menet közben rájössz hogy valami hiányzik, módosítsd a diagrammot és végezd újra el ezeket a lépéseket
 
-11) Elméletben ezen a pontod már elég sok infód van mit, hogyan, és milyen táblában tárolsz.
-    - Fel kell rajzolni az egészet valamilyen random ábrára. Az ábra mutassa a modelleket, a modellekben található tulajdonságokat és a modellek közötti kapcsolatot.
 
-12) Megvizsgálod, hogy egy E-K ábrán miket hogyan lehet felrajzolni.
-    - Ezek alapján a saját rajzodat átalakítod E-K formátumra.
 
 13) Az ábra alapján felírod a "CREATE TABLE" sql utasítások. Igen, írd fel kézzel, papírra, vagy akárhova. 
     - Protipp: Haladj egyesével az ábrán lévő modelleket. Minden modell esetén ha van az adott model beli egyed ID-t rakd előre a táblában (és célszerűen auto increment legyen, nem akarod kézel számolni). Ezek után jönnek a kapcsolatból jövő külső kulcsok ha vannak.
