@@ -36,7 +36,7 @@
 
 7. Végezd el a normalizálást 3NF-ig
    - 1:N és N:1 -es kapcsolat esetén azon az oldalon ahol van az "N" ott egy extra mező/oszlop/attribútum lesz a táblában/modellben. Ez az extra mező a külső kulcsod. Nevezd el ennek megfelelően!
-      - Protipp template: "<other modelname B>_id".
+      -Protipp template: "<other modelname B>_id".
    -Amennyiben van N:M-es kapcsolatod azt jelenti, hogy a kapcsolatot tényét egy külön táblában kell tárolni majd.
       - Itt felmerülhet olyan, hogy a kapcsolathoz valami infót is jó lenne tárolni.
       - pl: kv szokások: user-kv tipus táblák kapcsolat extra infó: mikor itta a kv-t.
