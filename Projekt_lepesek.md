@@ -1,5 +1,6 @@
 # AdatB kötprog how-to:
 ## Dokumentáció
+### Diagram
 1. Nyisd meg a példa dokumentációt és egy UML diagram szerkesztőt (draw.io)
 
 2. Józan paraszti ésszel gondold végig mit kell tudnia rendszerednek és ehhez milyen funkciók kellenek. Ezeket írd is bele rögtön a dokumentumba.
@@ -16,24 +17,31 @@
    - Ehhez célszerű lehet kérdéseket feltenni és megválaszolni.
    - pl: leltárs: user-eszköz kapcsolat: egy user-hez hány eszköz tartozhat? És egy eszközhöz hány user tartozhat?
    - Amit érdemes figyelembe venni még az az "időbeliség", pl.: hotelben foglaló személy-szoba kapcsolat: egy szoba egy foglaló személyhez lehet kiadva adott pillanatban, de a hotel élettartama alatt egy szoba több személyhez lehet kiadva, csak más időpontokba. Így ez már nem 1:1 kapcsolat hanem egyből egy N:1 -es kapcsolat sőt tovább gondolva egy N:M-es kapcsolat (ennek belátása az olvasó feladata).
-   - Protipp template: "egy <tábla A> -hez hány <tábla B> tartozhat?" ahol <modelname A> és <modelname B> között kapcsolat van.
+   - Protipp template: "egy <tábla A> -hez hány <tábla B> tartozhat?" ahol <tábla A> és <tábla B> között kapcsolat van.
    - Extra: 1:1 -es kapcsolat azért kicsit érdekes, ott meg kell nagyon gondolni miért jött elő. Személyes véleményem szerint ez elég ritka.
-   
-   - Figyelem! Eddig mindig csak kettő modellt kapcsoltunk össze.
-      - Való életben ez nem mindig így van, de plusz egy modellt hozzákapcsolni egy meglévő kapcsolathoz mindig feladatfüggő, hogy kell-e vagy hogy hova kell kötni.
 
-- Az összekapcsoláshoz mindig azonosítani kell az egyedeket a táblában, ehhez az egyik legjobb dolog ha egy ID tulajdonságot felveszünk az elemhez. Ezen ID (név, sorszám) alapján tudjuk majd kapcsolni az egyik modellből származó egyedet egy másik modellbeli egyeddel.
+9. Nézd meg a követelményeket és egészítsd kifura speciális dolgokkal (specializáló kapcsolat, több értékű attribútum, gyenge egyed)
 
-7. Végzel egy-két-három normalizálást. (2NF/3NF). Célszerűen legalább 2NF legyen minden tábla.
+10. Nézd át az attribútumok neveit és ha lenne ugyan olyan nevű
+   - pl.: felhasználó tábla név attribútmát felhasználónév-re, tanár tábla név attribútumát tanarneve-re.
 
-9. 1:N és N:1 -es kapcsolat esetén azon az oldalon ahol van az "N" ott egy extra mező/oszlop/attribútum lesz a táblában/modellben. Ez az extra mező a külső kulcsod. Nevezd el ennek megfelelően!
-   - Protipp template: "<other modelname B>_id".
+11. Végezd el a leképezést a diagramból a sablonba
 
-10) Amennyiben van N:M-es kapcsolatod azt jelenti, hogy a kapcsolatot tényét egy külön táblában kell tárolni majd.
-    - Itt felmerülhet olyan, hogy a kapcsolathoz valami infót is jó lenne tárolni.
-    - pl: kv szokások: user-kv tipus táblák kapcsolat extra infó: mikor itta a kv-t.
-    - Igy kialakulhat egy ilyen kapcsolati tábla: "KVFogyasztás(int user_id, int kv_type, datetime time_of_consumtion)"
-    - Protipp template a táblához: "<TableConnection A> (int <Table A>_id, int <Table B>_id,....)".
+12. Válaszd ki minden táblában a kulcsot és ha van a külső kulcsot
+   - lehet egy vagy több attribtum is a kulcs, a lényeg, hogy eggyértelműen meghatározza a rekordot
+   - szükség lehet ID bevezetésére, ami lényegében egy egyedi sorszámmal egyértelműen azonosít bármit
+
+
+13. írd fel a kapcsolatokat?
+
+7. Végezd el a normalizálást 3NF-ig
+   - 1:N és N:1 -es kapcsolat esetén azon az oldalon ahol van az "N" ott egy extra mező/oszlop/attribútum lesz a táblában/modellben. Ez az extra mező a külső kulcsod. Nevezd el ennek megfelelően!
+      - Protipp template: "<other modelname B>_id".
+   -Amennyiben van N:M-es kapcsolatod azt jelenti, hogy a kapcsolatot tényét egy külön táblában kell tárolni majd.
+      - Itt felmerülhet olyan, hogy a kapcsolathoz valami infót is jó lenne tárolni.
+      - pl: kv szokások: user-kv tipus táblák kapcsolat extra infó: mikor itta a kv-t.
+      - Igy kialakulhat egy ilyen kapcsolati tábla: "KVFogyasztás(int user_id, int kv_type, datetime time_of_consumtion)"
+      - Protipp template a táblához: "<TableConnection A> (int <Table A>_id, int <Table B>_id,....)".
 
 11) Elméletben ezen a pontod már elég sok infód van mit, hogyan, és milyen táblában tárolsz.
     - Fel kell rajzolni az egészet valamilyen random ábrára. Az ábra mutassa a modelleket, a modellekben található tulajdonságokat és a modellek közötti kapcsolatot.
