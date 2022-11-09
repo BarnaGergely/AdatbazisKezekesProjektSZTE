@@ -64,17 +64,17 @@ Személy(Keresztnév, Vezetéknév, *<u>Személyi igazolvány szám</u>*, Szemé
 
 Vendég(<u>Személyi igazolvány szám</u>, Vendég állapota)
 
-Rang(<u>Személyi igazolvány szám</u>, Rang megnevezése)
+_Rang(<u>Személyi igazolvány szám</u>, Rang megnevezése)_
 
 Dolgozó(<u>Személyi igazolvány szám</u>, Dolgozó állapota, Dolgozó beosztása, Dolgozó fizetése)
 
-Kupon(<u>Lejárati dátum</u>, <u>Leárazás értéke</u>, <u>Tulajdonos</u>, Kupon állapota)
+_Kupon(<u>Lejárati dátum</u>, <u>Leárazás értéke</u>, <u>Tulajdonos</u>, Kupon állapota)_
 
 Szoba(<u>Szobaszám</u>, Megnevezés, Szoba állapota, Legutóbbi takarító, Legutóbbi takarítás időpontja)
 
 Foglalás(*<u>Foglalás száma</u>*, *Szobaszám*, Foglalás kezdete, Foglalás vége, Foglalás állapota)
 
-Foglaló(<u>Foglalás száma</u>, <u>Személyi igazolvány szám</u>)
+_Foglaló(<u>Foglalás száma</u>, <u>Személyi igazolvány szám</u>)_
 
 ### Relációs adatbázissémákk normalizálása
 
