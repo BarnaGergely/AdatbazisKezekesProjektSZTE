@@ -1,12 +1,14 @@
-# Szálloda projekt dokumentáció 2022
+# Szálloda sdatbázisok projekt dokumentáció
 
-## Összefoglaló
+- Név: Barna Gergely
+- Neptun kód: FJKXGG
+- H-s azonosító: H144988
 
-Ebben a projektben egy hotel nyilvántartási webes alkalmazást fogok PHP, MySQL és Bootstrap alapokra felépíteni.
+## Rendszerspecifikáció
 
-### Rendszerspecifikáció
+Ebben a projektben egy hotel nyilvántartási webes alkalmazást fogok PHP és MySQL alapokra felépíteni.
 
-A rendszernek képesnek kell lennie arra, hogy a cég takarítói, vendégei és foglalásai nyilvántartását végezhessék benne.
+A rendszernek képesnek kell lennie arra, hogy a cég takarítói, vendégei, ellenőrei és foglalásai nyilvántartását végezessék benne.
 
 ### Funkciók
 
@@ -25,9 +27,20 @@ TODO: részletesebben leírni
   - A takarítók adatait el lehet tárolni, szerekeszteni vagy törölni az adatbázisban
   - Meg lehet nézni és be lehet állítani, mikor és mit takarított az adott takarító
 
-### Egyed-kapcsolat diagram
+### Technológia
 
-![image](SzallodaProjektAdatbazisDiagram.drawio.svg)
+A projekt a következő technológiákat/szoftvereket fogja használni a munka során:
+
+- Egyszerű CloudLinux alapú Cpanel webtárhely MySQL adatbázissal
+- PHP (backend)
+- Bootstrap (frontend)
+- Github szoftverprojekt menedzselő szolgáltatás
+- VSCode IDE
+- Git verziókövető (Github)
+
+## Egyed-kapcsolat diagram
+
+![image](SzallodaProjektAdatbazisDiagram.png)
 
 ### Egyed-kapcsolat leírása
 
@@ -60,199 +73,401 @@ TODO: Kapcsolatok nyilainak újra értelmézése
   - Mikor takarít
 
 ### Egyed-kapcsolat diagram leképezése relációs adatbázissémákká
-Személy(Keresztnév, Vezetéknév, *<u>Személyi igazolvány szám</u>*, Személy állapota)
-
-Vendég(<u>Személyi igazolvány szám</u>, Vendég állapota)
-
-_Rang(<u>Személyi igazolvány szám</u>, Rang megnevezése)_
-
-Dolgozó(<u>Személyi igazolvány szám</u>, Dolgozó állapota, Dolgozó beosztása, Dolgozó fizetése)
-
-_Kupon(<u>Lejárati dátum</u>, <u>Leárazás értéke</u>, <u>Tulajdonos</u>, Kupon állapota)_
-
-Szoba(<u>Szobaszám</u>, Megnevezés, Szoba állapota, Legutóbbi takarító, Legutóbbi takarítás időpontja)
-
-Foglalás(*<u>Foglalás száma</u>*, *Szobaszám*, Foglalás kezdete, Foglalás vége, Foglalás állapota)
-
-_Foglaló(<u>Foglalás száma</u>, <u>Személyi igazolvány szám</u>)_
-
-### Relációs adatbázissémákk normalizálása
-
-#### Funkcionális függőségek:
-
-1. {Személyi igazolvány szám} -> {Vendég állapota, Személy állapota, Keresztnév, Vezetéknév, Dolgozó állapota, Dolgozó beosztása, Dolgozó fizetése, Rang megnevezése}
-
-2. {Szobaszám} -> {Megnevezés, Szoba állapota, Legutóbbi takarító, Legutóbbi takarítás időpontja}
-
-3. {Foglalás száma} -> {Szobaszám, Foglalás kezdete, Foglalás vége, Foglalás állapota, Személyi igazolvány szám}
-
-4. {Lejárati dátum, Leárazás értéke, Tulajdonos} -> {Kupon állapota}
-
-5. {Személyi igazolvány szám, Keresztnév} -> {Vezetéknév, Személy állapota}
-
-6. {Személyi igazolvány szám, Dolgozó beosztása} -> {Dolgozó fizetése, Dolgozó állapota}
-
-7. {Foglalás száma, Szobaszám} -> {Foglalás kezdete, Foglalás vége,  Foglalás állapota}
-
-8. {Személyi igazolvány szám, Rang megnevezése} -> {Rang megnevezése}
-
-#### Összes attribútum egy táblában:
-
-R(Személyi igazolvány szám, Keresztnév, Vezetéknév, Személy állapota, Vendég állapota, Rang megnevezése, Dolgozó állapota, Dolgozó beosztása, Dolgozó fizetése, Lejárati dátum, Leárazás értéke, Tulajdonos, Kupon állapota, Szobaszám, Megnevezés, Szoba állapota, Legutóbbi takarító, Legutóbbi takarítás időpontja, Foglalás száma, Foglalás kezdete, Foglalás vége, Foglalás állapota, Személyi igazolvány szám)
-
-#### Kulcsok:
-
-{Személyi igazolvány szám, Szobaszám, Foglalás száma, Lejárati dátum, Leárazás értéke, Tulajdonos}
-
-#### 2NF
-
-##### 1., 2. és 3. függőség feloldása:
-
-R(*<u>Személyi igazolvány szám</u>*, *<u>Foglalás száma</u>*, <u>Lejárati dátum</u>, <u>Leárazás értéke</u>, <u>Tulajdonos</u>, Kupon állapota)
-
-R1(<u>Személyi igazolvány szám</u>, Vendég állapota, Személy állapota, Keresztnév, Vezetéknév, Dolgozó állapota, Dolgozó beosztása, Dolgozó fizetése, Rang megnevezése)
-
-R2(<u>Szobaszám</u>, Megnevezés, Szoba állapota, Legutóbbi takarító, Legutóbbi takarítás időpontja)
-
-R3(<u>Foglalás száma</u>, *Szobaszám*, Foglalás kezdete, Foglalás vége, Foglalás állapota, Személyi igazolvány szám)
-
-##### 4. függőség feloldása:
-
-R(*<u>Személyi igazolvány szám</u>*, *<u>Foglalás száma</u>*)
-
-R1(<u>Személyi igazolvány szám</u>, Vendég állapota, Személy állapota, Keresztnév, Vezetéknév, Dolgozó állapota, Dolgozó beosztása, Dolgozó fizetése, Rang megnevezése)
-
-R2(<u>Szobaszám</u>, Megnevezés, Szoba állapota, Legutóbbi takarító, Legutóbbi takarítás időpontja)
-
-R3(<u>Foglalás száma</u>, *Szobaszám*, Foglalás kezdete, Foglalás vége, Foglalás állapota, Személyi igazolvány szám)
-
-R4(<u>Lejárati dátum</u>, <u>Leárazás értéke</u>, <u>Tulajdonos</u>, Kupon állapota)
-
-##### 5., 6., 7. függőség feloldása:
-
-R(*<u>Személyi igazolvány szám</u>*, *<u>Foglalás száma</u>*)
-
-R1(<u>Személyi igazolvány szám</u>, Vendég állapota, Rang megnevezése)
-
-R2(<u>Szobaszám</u>, Megnevezés, Szoba állapota, Legutóbbi takarító, Legutóbbi takarítás időpontja)
-
-R4(<u>Lejárati dátum</u>, <u>Leárazás értéke</u>, <u>Tulajdonos</u>, Kupon állapota)
-
-R5(Keresztnév, Vezetéknév, <u>Személyi igazolvány szám</u>, Személy állapota)
-
-R6(<u>Személyi igazolvány szám</u>, Dolgozó állapota, Dolgozó beosztása, Dolgozó fizetése)
-
-R7(<u>Foglalás száma</u>, *Szobaszám*, Foglalás kezdete, Foglalás vége, Foglalás állapota)
-
-
-##### 8. függőség feloldása:
-
-R(*<u>Személyi igazolvány szám</u>*, *<u>Foglalás száma</u>*)
-
-R1(<u>Személyi igazolvány szám</u>, Vendég állapota)
-
-R2(<u>Szobaszám</u>, Megnevezés, Szoba állapota, Legutóbbi takarító, Legutóbbi takarítás időpontja)
-
-R4(<u>Lejárati dátum</u>, <u>Leárazás értéke</u>, <u>Tulajdonos</u>, Kupon állapota)
-
-R5(Keresztnév, Vezetéknév, <u>Személyi igazolvány szám</u>, Személy állapota)
-
-R6(<u>Személyi igazolvány szám</u>, Dolgozó állapota, Dolgozó beosztása, Dolgozó fizetése)
-
-R7(<u>Foglalás száma</u>, *Szobaszám*, Foglalás kezdete, Foglalás vége, Foglalás állapota)
-
-R8(<u>Személyi igazolvány szám</u>, Rang megnevezése)
-
-
-##### Átnevezve:
-
-Foglaló(*<u>Személyi igazolvány szám</u>*, *<u>Foglalás száma</u>*)
-
-Vendég(<u>Személyi igazolvány szám</u>, Vendég állapota)
-
-Szoba(<u>Szobaszám</u>, Megnevezés, Szoba állapota, Legutóbbi takarító, Legutóbbi takarítás időpontja)
-
-Kupon(<u>Lejárati dátum</u>, <u>Leárazás értéke</u>, <u>Tulajdonos</u>, Kupon állapota)
 
 Személy(Keresztnév, Vezetéknév, <u>Személyi igazolvány szám</u>, Személy állapota)
 
-Dolgozó(<u>Személyi igazolvány szám</u>, Dolgozó állapota, Dolgozó beosztása, Dolgozó fizetése)
+Ellenőr(_<u>Személyi igazolvány szám</u>_, Ellenőr állapota, Leírás)
 
-Foglalás(<u>Foglalás száma</u>, *Szobaszám*, Foglalás kezdete, Foglalás vége, Foglalás állapota)
+Dolgozó(_<u>Személyi igazolvány szám</u>_, beosztás, fizetés)
 
-Rang(<u>Személyi igazolvány szám</u>, Rang megnevezése)
+Rang(_<u>Személyi igazolvány szám</u>_, Rang név)
 
-#### 3NF
+Kupon(<u>Lejárati dátum</u>, <u>Leárazás értéke</u>, _<u>Tulajdonos</u>_, Állapot)
 
-Már 3NF-ben van. mivel minden másodlagos attribútuma közvetlenül függ bármely kulcstól.
+Szoba(<u>Szobaszám</u>, Szoba név, _Legutóbbi takarító_, Legutóbbi takarítás időpontja)
 
-### Tábla tervek
+Foglalás(<u>Foglalás száma</u>, _Szobaszám_, Foglalás kezdete, Foglalás vége, Foglalás állapota, _Foglaló személy_)
 
-TODO:
+### Relációs adatbázissémák normalizálása
 
-### Összetett lekírdezések
+#### Funkcionális függőségek:
 
-TODO:
+Személy:
 
-## Technológia
+{Személyi igazolvány szám} -> {Keresztnév, Vezetéknév, Személy állapota}
 
-A projekt a következő technológiákat/szoftvereket fogja használni a munka során:
+{Személyi igazolvány szám, Keresztnév} -> {Vezetéknév, Személy állapota}
 
-- Egyszerű CloudLinux alapú Cpanel webtárhely MySQL adatbázissal
-- PHP (backend)
-- Bootstrap (frontend)
-- Github szoftverprojekt menedzselő szolgáltatás
-- VSCode IDE
-- Git verziókövető (Github)
+{Személyi igazolvány szám, Személy állapota} -> {Vezetéknév, Keresztnév}
 
-### webalkalmazás futtatása
+{Személyi igazolvány szám, Vezetéknév} -> {Személy állapota, Keresztnév}
 
-TODO: Leírni hogyan kell elindítani a webalkalmazást
+{Személyi igazolvány szám, Keresztnév, Vezetéknév} -> {Személy állapota}
 
-## A munka tartalma
+{Személyi igazolvány szám, Keresztnév, Személy állapota} -> {Vezetéknév}
 
-### Követelmények
+{Személyi igazolvány szám, Vezetéknév, Személy állapota} -> {Keresztnév}
 
-- min. 4 tábla
-- MYSQL adatbázis kezelő rendszer
-- min. 50 demó rekord összesen
-  - Minden táblában legyen rekord
-- CRUD
-- legalább 3 összetett lekérdezés
+<br/>
 
-#### A programhoz a tervezési dokumentáció az alábbiakat tartalmazza:
+Ellenőr:
 
-- A feladat megnevezése
-- A feladat specifikációja, leírása
-- Egyed-kapcsolat diagram és az egyed-kapcsolat diagram értelmezésének leírása
-- Egyed-kapcsolat diagram leképezése relációs adatbázissémákká
-- Relációsémák normalizálása 3NF-ig. (Amennyiben egy-egy séma esetén indokolt, a normalizálást elegendő csupán 2NF-ig megcsinálni).
-- Táblatervek (a relációsémák alapján)
-- Az összetett lekérdezések, amelyek az alkalmazásban is meg vannak valósítva.
-- Megvalósítás (fejlesztő eszközök, nemtriviális megoldások).
-- Az elkészült alkalmazás funkciói (legalább felsorolás szintjén)
+{Személyi igazolvány szám} -> {Ellenőr állapota, Leírás}
 
-### Átadandók és határidők
+{Személyi igazolvány szám, Ellenőr állapota} -> {Leírás}
 
-A főbb átadandók és határidők a projekt időtartama alatt a következők:
+{Személyi igazolvány szám, Leírás} -> {Ellenőr állapota}
 
-| Szállítandó |             Neve             | Határideje |
-| :---------: | :--------------------------: | :--------: |
-|      D      |  Projektterv és dokuentáció  | 2022-10-15 |
-|     P+D     | Kész program és dokumentáció | 2022-11-27 |
+{Személyi igazolvány szám, Beosztás} -> {Fizetés}
 
-D - dokumentáció, P - prototípus
+{Személyi igazolvány szám, Fizetés} -> {Beosztás}
 
-### Verziók
+<br/>
 
-| Verzió | Dátum        | Státusz  | Megjegyzés     |
-| ------ | ------------ | -------- | -------------- |
-| 0.1    | `2021-09-26` | Tervezet | Legelső verzió |
+Rang:
 
-Státusz osztályozás:
+{Személyi igazolvány szám, Rang név} -> {Rang név}
 
-- Tervezet: befejezetlen dokumentum, a mérföldkő leadása előtti napokban
-- Előterjesztés: a projekt menedzser bírálatával, a mérföldkő határidejekor
-- Elfogadott: a megrendelő által elfogadva, a prezentáció bemutatásakor
+<br/>
+
+Kupon:
+
+{Lejárati dátum, Leárazás értéke, Tulajdonos} -> {Állapot}
+
+<br/>
+
+Szoba:
+
+{Szobaszám} -> {Szoba név, Legutóbbi takarító, Legutóbbi takarítás időpontja}
+
+{Szobaszám, Szoba név} -> {Legutóbbi takarító, Legutóbbi takarítás időpontja}
+
+{Szobaszám, Legutóbbi takarító} -> {Szoba név, Legutóbbi takarítás időpontja}
+
+{Szobaszám, Legutóbbi takarítás időpontja} -> {Szoba név, Legutóbbi takarító}
+
+{Szobaszám, Szoba név, Legutóbbi takarító} -> {Legutóbbi takarítás időpontja}
+
+{Szobaszám, Szoba név, Legutóbbi takarítás időpontja} -> {Legutóbbi takarító}
+
+{Szobaszám, Legutóbbi takarító, Legutóbbi takarítás időpontja} -> {Szoba név}
+
+<br/>
+
+Foglalás:
+
+{Foglalás száma} -> {Szobaszám, Foglalás kezdete, Foglalás vége, Foglalás állapota, Foglaló személy}
+
+{Foglalás száma, Szobaszám} -> {Foglalás kezdete, Foglalás vége, Foglalás állapota, Foglaló személy}
+
+{Foglalás száma, Foglalás kezdete} -> {Szobaszám, Foglalás vége, Foglalás állapota, Foglaló személy}
+
+{Foglalás száma, Foglalás vége} -> {Szobaszám, Foglalás kezdete, Foglalás állapota, Foglaló személy}
+
+{Foglalás száma, Foglalás állapota} -> {Szobaszám, Foglalás kezdete, Foglalás vége, Foglaló személy}
+
+{Foglalás száma, Foglaló személy} -> {Szobaszám, Foglalás kezdete, Foglalás vége, Foglalás állapota}
+
+{Foglalás száma, Szobaszám, Foglalás kezdete} -> {Foglalás vége, Foglalás állapota, Foglaló személy}
+
+{Foglalás száma, Szobaszám, Foglalás vége} -> {Foglalás kezdete, Foglalás állapota, Foglaló személy}
+
+{Foglalás száma, Szobaszám, Foglalás állapota} -> {Foglalás kezdete, Foglalás vége, Foglaló személy}
+
+{Foglalás száma, Szobaszám, Foglaló személy} -> {Foglalás kezdete, Foglalás vége, Foglalás állapota}
+
+{Foglalás száma, Foglalás kezdete, Foglalás vége} -> {Szobaszám, Foglalás állapota, Foglaló személy}
+
+{Foglalás száma, Foglalás kezdete, Foglalás állapota} -> {Szobaszám, Foglalás vége, Foglaló személy}
+
+{Foglalás száma, Foglalás kezdete, Foglaló személy} -> {Szobaszám, Foglalás vége, Foglalás állapota}
+
+{Foglalás száma, Foglalás vége, Foglalás állapota} -> {Szobaszám, Foglalás kezdete, Foglaló személy}
+
+{Foglalás száma, Foglalás vége, Foglaló személy} -> {Szobaszám, Foglalás kezdete, Foglalás állapota}
+
+{Foglalás száma, Foglalás állapota, Foglaló személy} -> {Szobaszám, Foglalás kezdete, Foglalás vége}
+
+{Foglalás száma, Szobaszám, Foglalás kezdete, Foglalás vége} -> {Foglalás állapota, Foglaló személy}
+
+{Foglalás száma, Szobaszám, Foglalás kezdete, Foglalás állapota} -> {Foglalás vége, Foglaló személy}
+
+{Foglalás száma, Szobaszám, Foglalás kezdete, Foglaló személy} -> {Foglalás vége, Foglalás állapota}
+
+{Foglalás száma, Szobaszám, Foglalás vége, Foglalás állapota} -> {Foglalás kezdete, Foglaló személy}
+
+{Foglalás száma, Szobaszám, Foglalás vége, Foglaló személy} -> {Foglalás kezdete, Foglalás állapota}
+
+{Foglalás száma, Szobaszám, Foglalás állapota, Foglaló személy} -> {Foglalás kezdete, Foglalás vége}
+
+... - Had ne írjam ki az összeset ehhez a táblához. Lényegében a kulcs (Foglalás száma) után bármilyen atribútumot fűzűnk, meg fogja határozni a tábla többi attribútumát.
+
+<br/>
+
+Ha elvonatkoztatok a példa megoldástól és elkezdek gondolkodni, simán kijön, hogy két esélyes kulcsa van a foglalás táblának (na jó 3, de kettő lényegében ugyan az):
+
+{Foglalás száma} -> {Szobaszám, Foglalás kezdete, Foglalás vége, Foglalás állapota, Foglaló személy} _--- a foglalás számát lényegében kulcsnak hoztam létre, nem csoda hát hogy egyértelműen meghatározza a tábla összes többi attribútumát. Ezt használtam később is, mert ő a legrövidebb, akarom mondani legszűkebb._
+
+{Szobaszám, Foglalás kezdete, Foglaló személy} -> {Foglalás vége, Foglalás állapota, Foglalás száma} _--- Egy szobát egy személy egy időben nem bérelhet ki kétszer (legalábbis nem lenne értelme, ezért felételezem hogy nem gond, ha nem teheti meg), ezért akár ez is lehetne kulcs_
+
+{Szobaszám, Foglalás vége, Foglaló személy} -> {Foglalás kezdete, Foglalás állapota, Foglalás száma} _--- Ugyan ez érvényesül, ha a foglalás végét vesszük kulcsnak akkor is._
+
+_Bármi ami ezeknél bővebb nem lehet kulcs, mert ezek szűkebbek nála, ezért nincs is értelme foglalkozni velük._
+
+#### Kulcsok
+
+Külső kulcs más néven: idegen kulcs, Foreign key
+
+Személy(Keresztnév, Vezetéknév, <u>Személyi igazolvány szám</u>, Személy állapota)
+
+- Kulcs: Személyi igazolvány szám
+  - Ez a legszűkebb halmaz, amelynek lezártja visszaadja a teljes attribútumhalmazt.
+
+Ellenőr(_<u>Személyi igazolvány szám</u>_, Ellenőr állapota, Leírás)
+
+- Kulcs: Személyi igazolvány szám
+  - Ez a legszűkebb halmaz, amelynek lezártja visszaadja a teljes attribútumhalmazt.
+- Külső kulcs: Személyi igazolvány szám
+  - Személy tábla elsődleges kulcsára hivatkozik
+
+Dolgozó(_<u>Személyi igazolvány szám</u>_, beosztás, fizetés)
+
+- Kulcs: Személyi igazolvány szám
+  - Ez a legszűkebb halmaz, amelynek lezártja visszaadja a teljes attribútumhalmazt.
+- Külső kulcs: Személyi igazolvány szám
+  - Személy tábla elsődleges kulcsára hivatkozik
+
+Rang(_<u>Személyi igazolvány szám</u>_, Rang név)
+
+- Kulcs: Személyi igazolvány szám
+  - Ez a legszűkebb halmaz, amelynek lezártja visszaadja a teljes attribútumhalmazt.
+- Külső kulcs: Személyi igazolvány szám
+  - Személy tábla elsődleges kulcsára hivatkozik
+
+Kupon(<u>Lejárati dátum</u>, <u>Leárazás értéke</u>, _<u>Tulajdonos</u>_, Állapot)
+
+- Kulcs: Lejárati dátum, Leárazás értéke, Tulajdonos
+  - Ez a legszűkebb halmaz, amelynek lezártja visszaadja a teljes attribútumhalmazt.
+- Külső kulcs: Tulajdonos
+  - Személy tábla elsődleges kulcsára hivatkozik
+
+Szoba(<u>Szobaszám</u>, Szoba név, _Legutóbbi takarító_, Legutóbbi takarítás időpontja)
+
+- Kulcs: Szobaszám
+  - Ez a legszűkebb halmaz, amelynek lezártja visszaadja a teljes attribútumhalmazt.
+- Külső kulcs: Legutóbbi takarító
+  - Dolgozó tábla elsődleges kulcsára hivatkozik
+
+Foglalás(<u>Foglalás száma</u>, _Szobaszám_, Foglalás kezdete, Foglalás vége, Foglalás állapota, _Foglaló személy_)
+
+- Kulcs: Foglalás száma
+  - Ez a legszűkebb halmaz, amelynek lezártja visszaadja a teljes attribútumhalmazt.
+- Külső kulcs: Szobaszám
+  - Szoba tábla elsődleges kulcsára hivatkozik
+- Külső kulcs: Foglaló személy
+  - Személy tábla elsődleges kulcsára hivatkozik
+
+## Tábla tervek
+
+![image](AdatbazisCuccok\hotel_Tablaterv.png)
+
+Nem tudom ilyen tábla terv kellett e, ezért a dokumentum legaljára bemásoltam a tábla, kulcs és külső kulcs létrehozó SQL-t is.
+
+## Összetett lekérdezések
+
+### 1) Legutóbb takarított szoba(k):
+
+```
+SELECT szoba.szobaszam, szoba.nev, MIN(szoba.legutobbitakaritasidopontja)
+FROM szoba
+GROUP BY szoba.szobaszam, szoba.nev
+HAVING MIN(szoba.legutobbitakaritasidopontja) = (
+  SELECT MIN(legregebbi)
+  FROM (
+    SELECT szoba.szobaszam, MIN(szoba.legutobbitakaritasidopontja) AS legregebbi
+    FROM szoba
+    GROUP BY szoba.szobaszam
+  ) as x
+)
+```
+
+### 2) Legtöbbet foglalt személy(ek):
+
+```
+SELECT vezeteknev, keresztnev, szemelyiigazolvanyszam FROM szemely
+WHERE szemelyiigazolvanyszam
+IN (
+    SELECT foglaloszemely
+    FROM (
+        SELECT foglaloszemely, COUNT(*) AS darab
+        FROM foglalas
+        GROUP BY foglaloszemely
+        having count(*) = (
+            SELECT max(x.darab)
+            FROM (
+                SELECT foglaloszemely, COUNT(*) AS darab
+                FROM foglalas
+                GROUP BY foglaloszemely
+            ) as x
+        )
+    )  as xy
+)
+```
+
+### 3) Jelenleg szabad szobák száma:
+
+```
+SELECT COUNT(*) as uresszobakszama
+FROM szoba
+WHERE szoba.szobaszam IN (
+  SELECT foglalas.szobaszam
+    FROM foglalas
+    WHERE CURRENT_DATE BETWEEN foglalaskezdete AND foglalasvege
+)
+```
+
+### 4) Legkevesebbet kereső dolgozó(k):
+
+```
+SELECT vezeteknev, keresztnev, dolgozo.szemelyiigazolvanyszam
+FROM dolgozo
+LEFT OUTER JOIN szemely ON szemely.szemelyiigazolvanyszam = dolgozo.szemelyiigazolvanyszam
+WHERE fizetes = (
+  SELECT MIN(fizetes) FROM dolgozo
+)
+```
+
+### 5) Legtöbbet kereső dolgozó(k):
+
+```
+SELECT vezeteknev, keresztnev, dolgozo.szemelyiigazolvanyszam
+FROM dolgozo
+LEFT OUTER JOIN szemely ON szemely.szemelyiigazolvanyszam = dolgozo.szemelyiigazolvanyszam
+WHERE fizetes = (
+  SELECT MAX(fizetes) FROM dolgozo
+)
+```
+
+### 6) Foglalások listázása (Foglalás kezdetének ideje szerint rendezve):
+
+```
+SELECT foglalasszama, foglalas.szobaszam, nev, foglalaskezdete, foglalasvege, foglalasallapota, foglaloszemely, szemely.keresztnev, szemely.vezeteknev
+FROM foglalas
+LEFT OUTER JOIN szoba ON foglalas.szobaszam = szoba.szobaszam
+LEFT OUTER JOIN szemely ON foglalas.foglaloszemely = szemely.szemelyiigazolvanyszam
+ORDER BY foglalaskezdete
+```
+
+### 7) Dolgozók listázása (Név szerint rendezve):
+
+```
+SELECT keresztnev, vezeteknev, szemelyallapota, szemely.szemelyiigazolvanyszam, beosztas, fizetes
+FROM szemely
+RIGHT OUTER JOIN dolgozo ON szemely.szemelyiigazolvanyszam = dolgozo.szemelyiigazolvanyszam
+ORDER BY keresztnev, vezeteknev
+```
+
+## Tábla, kulcs, külső kulcs létrehozó SQL utasítássorozat
+
+```
+CREATE TABLE `dolgozo` (
+  `szemelyiigazolvanyszam` int(32) NOT NULL,
+  `beosztas` varchar(32) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `fizetes` int(16) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+CREATE TABLE `ellenor` (
+  `szemelyiigazolvanyszam` int(32) NOT NULL,
+  `ellenorallapota` varchar(32) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `leiras` text COLLATE utf8_hungarian_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+CREATE TABLE `foglalas` (
+  `foglalasszama` int(11) NOT NULL,
+  `szobaszam` int(4) DEFAULT NULL,
+  `foglalaskezdete` date DEFAULT NULL,
+  `foglalasvege` date DEFAULT NULL,
+  `foglalasallapota` varchar(32) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `foglaloszemely` int(32) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+CREATE TABLE `kupon` (
+  `lejaratidatum` date NOT NULL,
+  `learazaserteke` int(2) NOT NULL,
+  `tulajdonos` int(32) NOT NULL,
+  `allapot` varchar(16) COLLATE utf8_hungarian_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+CREATE TABLE `rang` (
+  `nev` varchar(32) COLLATE utf8_hungarian_ci NOT NULL,
+  `szemelyiigazolvanyszam` int(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+CREATE TABLE `szemely` (
+  `keresztnev` varchar(128) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `vezeteknev` varchar(128) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `szemelyallapota` varchar(32) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `szemelyiigazolvanyszam` int(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+CREATE TABLE `szoba` (
+  `szobaszam` int(4) NOT NULL,
+  `nev` varchar(32) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `legutobbitakarito` int(32) DEFAULT NULL,
+  `legutobbitakaritasidopontja` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+
+ALTER TABLE `dolgozo`
+  ADD PRIMARY KEY (`szemelyiigazolvanyszam`);
+
+ALTER TABLE `ellenor`
+  ADD PRIMARY KEY (`szemelyiigazolvanyszam`);
+
+ALTER TABLE `foglalas`
+  ADD PRIMARY KEY (`foglalasszama`),
+  ADD KEY `szobaFoglal` (`szobaszam`),
+  ADD KEY `szemelyFoglal` (`foglaloszemely`);
+
+ALTER TABLE `kupon`
+  ADD PRIMARY KEY (`lejaratidatum`,`learazaserteke`,`tulajdonos`),
+  ADD KEY `kuponBirtokol` (`tulajdonos`);
+
+ALTER TABLE `rang`
+  ADD PRIMARY KEY (`nev`,`szemelyiigazolvanyszam`) USING BTREE,
+  ADD KEY `rangjaVan` (`szemelyiigazolvanyszam`);
+
+ALTER TABLE `szemely`
+  ADD PRIMARY KEY (`szemelyiigazolvanyszam`);
+
+ALTER TABLE `szoba`
+  ADD PRIMARY KEY (`szobaszam`),
+  ADD KEY `takarit` (`legutobbitakarito`);
+
+
+ALTER TABLE `foglalas`
+  MODIFY `foglalasszama` int(11) NOT NULL AUTO_INCREMENT;
+
+
+ALTER TABLE `dolgozo`
+  ADD CONSTRAINT `Dolgozo_bovit` FOREIGN KEY (`szemelyiigazolvanyszam`) REFERENCES `szemely` (`szemelyiigazolvanyszam`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `ellenor`
+  ADD CONSTRAINT `ellenorBovit` FOREIGN KEY (`szemelyiigazolvanyszam`) REFERENCES `szemely` (`szemelyiigazolvanyszam`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `foglalas`
+  ADD CONSTRAINT `szemelyFoglal` FOREIGN KEY (`foglaloszemely`) REFERENCES `szemely` (`szemelyiigazolvanyszam`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `szobaFoglal` FOREIGN KEY (`szobaszam`) REFERENCES `szoba` (`szobaszam`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `kupon`
+  ADD CONSTRAINT `kuponBirtokol` FOREIGN KEY (`tulajdonos`) REFERENCES `szemely` (`szemelyiigazolvanyszam`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `rang`
+  ADD CONSTRAINT `rangjaVan` FOREIGN KEY (`szemelyiigazolvanyszam`) REFERENCES `szemely` (`szemelyiigazolvanyszam`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `szoba`
+  ADD CONSTRAINT `takarit` FOREIGN KEY (`legutobbitakarito`) REFERENCES `dolgozo` (`szemelyiigazolvanyszam`) ON DELETE SET NULL ON UPDATE CASCADE;
+COMMIT;
+```
 
 Szeged, 2022-10-15.
