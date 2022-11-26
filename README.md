@@ -1,4 +1,4 @@
-# Szálloda sdatbázisok projekt dokumentáció
+# Szálloda adatbázis projekt dokumentáció
 
 - Név: Barna Gergely
 - Neptun kód: FJKXGG
@@ -12,20 +12,35 @@ A rendszernek képesnek kell lennie arra, hogy a cég takarítói, vendégei, el
 
 ### Funkciók
 
-TODO: részletesebben leírni
-
-- foglalások kezelése
-  - ki mikorra, melyik szobát foglalta le
-  - foglalás állapotának követése: megjelent, kijeletnkezett, aktív, stb.
-- Vendégek adatainak nyilvántartása
-  - Név, sz. ig szám tárolása és szerkesztése
-  - Foglalásaik megtekintése
+- Személlyek nyilvántartása
+  - Lehessen nyilvántartást vezetni a hotelben megfordult emberekről
+  - Tárolanó adatok: név, sz.ig. száma, Állapot, Rang
+  - Lehessen személyeket létrehozni, módosítani és törölni
+  - A személyeknek lehessen rangot adni (egyszerre akár több rangja is lehessen egy személynek)
+  - A személyket meg lehessen tekinteni egy listában és rendezni adataik alapján
+- Dolgozók nyilvántartása
+  - A dolgozók legyenek speciális személyek, akikről több adatot tárolunk
+  - Tárolanó adatok: a személy adatain felül beosztás és fizetés
+  - Lehessen személyeket létrehozni, módosítani és törölni
+  - Ha a dolgozóhoz tartozó személyt töröljük, törlődjön a dolgozó is
+- Ellenőrök nyilvántartása
+  - Az ellenörök legyenek speciális személyek, akikről több adatot tárolunk
+  - Tárolanó adatok: a személy adatain felül ellenőr állapota, leírás
+  - Lehessen ellenőröket létrehozni, módosítani és törölni
+  - Az ellenőrök leírásába be lehessen írni egy hoszabb szöveget az ellenőrről.
+  - Ha az ellenőrhöz tartozó személyt töröljük, törlődjön az ellenőr is
 - Szobák nyilvántartása
-  - Létre lehet hozni, szerkeszteni és törölni őket
-  - Meg lehet nézni mikor lettek legutóbb kitakarítva és éppen lakik e valaki bennük
-- Takarítók nyilvántartása
-  - A takarítók adatait el lehet tárolni, szerekeszteni vagy törölni az adatbázisban
-  - Meg lehet nézni és be lehet állítani, mikor és mit takarított az adott takarító
+  - Az adatbázisban tároljuk el a hotelben lévő szobákat és néhány adatot róluk
+  - Tárolanó adatok: szobaszám, Szoba neve, Ki takarította utoljára, Mikor takarították utoljára
+  - Lehessen szobákat létrehozni, módosítani és törölni
+  - Minden szobánál meg lehessen adni melyik dolgozó és mikor takarította legutóbb a szobát
+- Foglalások nyilvántartása
+  - Követni lehessen ki, mikorra és melyik szobát foglalta le.
+  - Tárolanó adatok: Foglalás száma, Foglalt szoba, Foglaló személy, Foglalás kezdeti dátuma, Foglalás vég dátuma, Foglalás állapota
+  - Lehessen foglalásokat létrehozni, módosítani és törölni
+  - Lehessen egy szobát egy időpontban több személynek is kiadni
+  - Egy személy egy időpontra akár több szobát is lefoglalhasson
+  - Be lehessen állítani a foglalások állapotát
 
 ### Technológia
 
@@ -42,37 +57,21 @@ A projekt a következő technológiákat/szoftvereket fogja használni a munka s
 
 ![image](SzallodaProjektAdatbazisDiagram.png)
 
-### Egyed-kapcsolat leírása
+### Egyed-kapcsolat diagram leírása
 
-TODO: részletesebben leírni
+Az hogy az egyes tábláknak milyen attribútumaik vannak vagy vagy hogy épp mi a nevük, szerintem teljesen egyértelmű, ezért nem fogom most újra leírni. A következő párszáz sor ezt taglalja, most foglalkozzunk inkább az izgalmasabb jelölésekkel.
 
-TODO: Kapcsolatok nyilainak újra értelmézése
+A Személy táblának van egy több értékű attribútuma, amely leképezés után egy külön táblába fog kerülni. Ennek hála egy személynek egyszerre akár több rangja is lehet. E mellett van egy összetett attribútuma is (név), amelynek részattribútumai kerülnek csak bele leképezésnél a táblába.
 
-- Terek tábla adattagjai:
-  - Kód (szoba száma)
-  - Megnevezés
-  - Állapot
-- Szoba tábla (Terek tábla specializációja) adattagjai:
-- Személy tábla adattagjai:
-  - Név:
-    - Keresztnév
-    - Vezetéknév
-  - Sz.ig szám
-  - Állapot
-- Vendég tábla (Személy tábla specializációja) adattagjai:
-  - Rang
-- Dolgozók tábla (Személy tábla specializációja) adattagjai:
-  - Fizetés
-  - Beosztás
-- Takarító tábla
-- Foglalás tábla adattagjai
-  - Foglalás kezdete
-  - Foglalás vége
-  - Állapot (Aktív, nem jelent meg, kijelentkezett)
-- Takarítások kapcsolat a szobák és a dolgozók között. Adattagjai:
-  - Mikor takarít
+A Kupon gyenge egyed egy meghatározó kapcsolaton keresztül megkapja leképezésnél a személy kulcsát, ami nékül nem lehetne egyértelműen hivatkozni rekordjaira (nem lenne pontos kulcsa).
 
-### Egyed-kapcsolat diagram leképezése relációs adatbázissémákká
+Az Ellenőr és a Dolgozó a Személy specializációja. Úgy döntöttem a rendundancia elkerülése végett leképezésnél a szülő kulcsát veszem hozzá a gyerek attribútumaihoz. Ez lassítja és összetettebé teszi a gyerekek összes adatának lekérdezését, cserébe kisebb helyet foglal (Tegyünk úgy mintha számítana egy ekkora adatbázinál a méret).
+
+A Foglalás egy N:M kapcsolat, szóval külön táblát kap leképezésnél (nem lehet össze vonni) attribútumaival és a két összekapcsolt tábla kulcsával.
+
+A Takarít egy 1:M kapcsolat az az az M oldali táblával összevonható, így abba fognak bele olvadni attribútumai és a másik tábla kulcsa leképezéskor.
+
+### Egyed-kapcsolat diagram leképezése koszolidált relációs adatbázissémákká
 
 Személy(Keresztnév, Vezetéknév, <u>Személyi igazolvány szám</u>, Személy állapota)
 
@@ -124,7 +123,9 @@ Ellenőr:
 
 <br/>
 
-Rang:
+Rang: 
+
+A táblának minden attribútuma kulcs is, ezért kicsit furán néz ki a függősége. Lényegében saját mahát határozza meg.
 
 {Személyi igazolvány szám, Rang név} -> {Rang név}
 
@@ -206,13 +207,13 @@ Foglalás:
 
 Ha elvonatkoztatok a példa megoldástól és elkezdek gondolkodni, simán kijön, hogy két esélyes kulcsa van a foglalás táblának (na jó 3, de kettő lényegében ugyan az):
 
-{Foglalás száma} -> {Szobaszám, Foglalás kezdete, Foglalás vége, Foglalás állapota, Foglaló személy} _--- a foglalás számát lényegében kulcsnak hoztam létre, nem csoda hát hogy egyértelműen meghatározza a tábla összes többi attribútumát. Ezt használtam később is, mert ő a legrövidebb, akarom mondani legszűkebb._
+{Foglalás száma} -> {Szobaszám, Foglalás kezdete, Foglalás vége, Foglalás állapota, Foglaló személy} _--- a foglalás számát lényegében kulcsnak terveztem, nem csoda hát hogy egyértelműen meghatározza a tábla összes többi attribútumát. Ezt használtam később is kulcsnak, mert ő a legegyszerűbb._
 
 {Szobaszám, Foglalás kezdete, Foglaló személy} -> {Foglalás vége, Foglalás állapota, Foglalás száma} _--- Egy szobát egy személy egy időben nem bérelhet ki kétszer (legalábbis nem lenne értelme, ezért felételezem hogy nem gond, ha nem teheti meg), ezért akár ez is lehetne kulcs_
 
 {Szobaszám, Foglalás vége, Foglaló személy} -> {Foglalás kezdete, Foglalás állapota, Foglalás száma} _--- Ugyan ez érvényesül, ha a foglalás végét vesszük kulcsnak akkor is._
 
-_Bármi ami ezeknél bővebb nem lehet kulcs, mert ezek szűkebbek nála, ezért nincs is értelme foglalkozni velük._
+_Bármi ami ezeknél bővebb nem lehet kulcs, mert ezek szűkebbek nála, ezért nincs is értelme foglalkozni vele._
 
 #### Kulcsok
 
@@ -266,6 +267,28 @@ Foglalás(<u>Foglalás száma</u>, _Szobaszám_, Foglalás kezdete, Foglalás v�
   - Szoba tábla elsődleges kulcsára hivatkozik
 - Külső kulcs: Foglaló személy
   - Személy tábla elsődleges kulcsára hivatkozik
+
+### Normalizálás
+
+Minden tábla 3NF-ben lett a lekípezés után, így nem igazán tudok normalizálni.
+
+A minden táblán belül minden másodlagos attribútum atomi, teljesen függ bármely kulcstól és nincs tranzitív függés az attribútumok között, az az 3NF-ben van minden tábla.
+
+Normalizáltság bizonyítása után a séma ugyan olyan maradt:
+
+Személy(Keresztnév, Vezetéknév, <u>Személyi igazolvány szám</u>, Személy állapota)
+
+Ellenőr(_<u>Személyi igazolvány szám</u>_, Ellenőr állapota, Leírás)
+
+Dolgozó(_<u>Személyi igazolvány szám</u>_, beosztás, fizetés)
+
+Rang(_<u>Személyi igazolvány szám</u>_, Rang név)
+
+Kupon(<u>Lejárati dátum</u>, <u>Leárazás értéke</u>, _<u>Tulajdonos</u>_, Állapot)
+
+Szoba(<u>Szobaszám</u>, Szoba név, _Legutóbbi takarító_, Legutóbbi takarítás időpontja)
+
+Foglalás(<u>Foglalás száma</u>, _Szobaszám_, Foglalás kezdete, Foglalás vége, Foglalás állapota, _Foglaló személy_)
 
 ## Tábla tervek
 
@@ -470,4 +493,4 @@ ALTER TABLE `szoba`
 COMMIT;
 ```
 
-Szeged, 2022-10-15.
+Szeged, 2022-11-24.
