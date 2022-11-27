@@ -4,6 +4,8 @@
 - Neptun kód: FJKXGG
 - H-s azonosító: H144988
 
+A webalkalmazés éles verziója jelenleg is fut a szerveremen. Ezen az URL-en elérhető: [https://hotel.barnagergely.hu/](https://hotel.barnagergely.hu/)
+
 ## Rendszerspecifikáció
 
 Ebben a projektben egy hotel nyilvántartási webes alkalmazást fogok PHP és MySQL alapokra felépíteni.
@@ -48,7 +50,6 @@ A projekt a következő technológiákat/szoftvereket fogja használni a munka s
 
 - Egyszerű CloudLinux alapú Cpanel webtárhely MySQL adatbázissal
 - PHP (backend)
-- Bootstrap (frontend)
 - Github szoftverprojekt menedzselő szolgáltatás
 - VSCode IDE
 - Git verziókövető (Github)
@@ -123,7 +124,7 @@ Ellenőr:
 
 <br/>
 
-Rang: 
+Rang:
 
 A táblának minden attribútuma kulcs is, ezért kicsit furán néz ki a függősége. Lényegében saját mahát határozza meg.
 
@@ -270,7 +271,7 @@ Foglalás(<u>Foglalás száma</u>, _Szobaszám_, Foglalás kezdete, Foglalás v�
 
 ### Normalizálás
 
-Minden tábla 3NF-ben lett a lekípezés után, így nem igazán tudok normalizálni.
+Minden tábla 3NF-ben lett a leképezés után, így nem igazán tudok normalizálni.
 
 A minden táblán belül minden másodlagos attribútum atomi, teljesen függ bármely kulcstól és nincs tranzitív függés az attribútumok között, az az 3NF-ben van minden tábla.
 
@@ -493,4 +494,4 @@ ALTER TABLE `szoba`
 COMMIT;
 ```
 
-Szeged, 2022-11-24.
+Szeged, 2022-11-24
